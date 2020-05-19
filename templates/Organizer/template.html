@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--TODO: why two titles? -->
+    <meta charset="UTF-8">
+    <title>certificate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ACTIVITY LIST</title>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+</head>
+<body style="   height:  100%;">
+<!--TODO: why those images? and why local? -->
+<img width="96" height="202" src="C:\Users\Leeno\PycharmProjects\CCISTWorkshop\static\Logo.png" hspace="12" style=" position:fixed; top: 0%; left: -1%; z-index: -2;"/>
+<img width="285" height="338" src="C:\Users\Leeno\PycharmProjects\CCISTWorkshop\static\logo1.png" style=" position:fixed; bottom: 0%; right: 0; z-index: -2;"/>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="mx-auto w-50 p-3   text-center">
+            <div class="form-group">
+                <div>
+                    <h2>Attendance Certificate </h2>
+                    <br>
+                    <h3>This certificate is presented to </h3>
+                    <div>
+                        <h3 class="text-info align-middle">{{ name }}</h3>
+                    </div>
+                    <div>
+                        For Attending <h4 class=" text-info align-middle">  {{ workshop }} </h4>
+                    </div>
+                    <br>
+                    <div>
+                        <!--TODO: why 'On'? -->
+                        On <h4 class=" text-info align-middle">  {{ date }} &nbsp; {{ time }} </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

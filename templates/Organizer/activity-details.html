@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ACTIVITY Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/smoothproducts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/progress-bars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/bootstrap/css/bootstrap.min.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <!--TODO: why not in static file? -->
+    <style>
+        .tooltip {
+            position: relative;
+            float: right;
+        }
+
+        .tooltip > .tooltip-inner {
+            background-color: #eebf3f;
+            padding: 5px 15px;
+            color: rgb(23, 44, 66);
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .popOver + .tooltip > .tooltip-arrow {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #eebf3f;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container">
+        <a class="navbar-brand logo font-weight-bold" href="/home" style="color: #0d4040;">CCSIT Activities</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/home">VIEW ACTIVITY</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page product-page">
+    <section class="clean-block clean-product dark">
+        <div class="container">
+            <div class="block-content"></div>
+            <div class="block-content">
+                <div class="product-info">
+                    <div class="row">
+                        {% for row in rows %}
+                            <div class="col-md-6"><img src="../../static/logos/{{ row[6] }}" width="400" height="400">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <h3><strong>{{ row[2] }}</strong></h3>
+                                    <div class="price">
+                                        <h3>{{ (row[3].split("T"))[0] }} {{ (row[3].split("T"))[1] }}</h3>
+                                    </div>
+                                    <div class="summary">
+                                        <h4><strong>Organizer Name:</strong> {{ row[1] }}</h4>
+                                        <h4><strong>Location:</strong> {{ row[5] }}</h4>
+                                        <h4><strong>Seats Number:</strong> {{ row[4] }}</h4>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar bg-danger" data-toggle="tooltip" title="{{ Absent }} out of {{ reg }} registered " style="color: black;  width: {{ ((Absent / reg) * 100) }}%">
+                                        Absent {{ ((Absent / reg) * 100) }}%
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar bg-warning" data-toggle="tooltip" title="{{ Attend }} out of {{ reg }} registered" style=" color: black; width: {{ ((Attend / reg) * 100) }}%">
+                                        Present {{ ((Attend / reg) * 100) }}%
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info bg-success " data-toggle="tooltip " title="{{ ava }} Available out of {{ row[4] }} seats" style=" color: black; width: {{ avaround }}%">
+                                        Available seats {{ avaround }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-3">
+                                        <form id="editform" style="display: inline; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" method='POST'>
+                                            <input type="text" id="edit" style="display: none;  visibility: hidden;" value="{{ row[0] }}" name='edit'>
+                                            <button class=" btn font-weight-bold btn-block" style="background-color: #0D4040;  color:#ffffff" type="submit">Edit</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <button class=" btn font-weight-bold btn-block " id="delete" style="background-color: #0D4040;  color:#ffffff" name="delete" onclick='dele("{{ row[0] }}","{{ row[2] }} ")'> Delete</button>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <form id="attendenceform" style="display: inline; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" method='POST'>
+                                            <input type="text" id="attendence" style="display: none;  visibility: hidden;" value="{{ row[0] }}" name='attendence'>
+                                            <button class=" btn font-weight-bold btn-block" style="background-color: #0D4040;  color:#ffffff" type="submit">Attendence</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        {% if   (row[7] == 0 ) and (Attend != 0) %}
+                                            <form id="certificateform" style="display: inline; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" method='POST'>
+                                                <input type="text" id="cert" style="display: none;  visibility: hidden;" value="{{ row[0] }}" name='cert'>
+                                                <button class=" btn font-weight-bold btn-block" style="background-color: #0D4040;  color:#ffffff" type="submit">Generate certificate</button>
+                                            </form>
+                                        {% elif (row[7] == 1 ) %}
+                                            <td>
+                                                <a class=" btn  btn-block font-weight-bold text-white" style="background-color: #0D4040;  color:#ffffff" href="/cer/{{ row[0] }}"> View Certificate</a>
+                                            </td>
+                                        {% elif (Attend == 0) %}
+                                            <td>
+                                                <button class=" btn font-weight-bold btn-block" style="background-color: #0D4040;  color:#ffffff" onclick="Swal.fire('Please take Attendance first')">Generate certificate</button>
+                                            </td>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
+<!--TODO: why not in one script tag? -->
+<script>
+    function dele(id, title) {
+        Swal.fire({
+            title: 'Are you sure ?',
+            text: "You will not be able to restore it.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0d4040',
+            cancelButtonColor: '#bfa04e',
+            confirmButtonText: "Yes, I'm sure"
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'The activity ' + title + ' has been deleted',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+                window.location("{{ url_for('delete', id='ADDSHARE2') }}".replace("ADDSHARE2", id))
+                setTimeout(function () {
+                    location.reload()
+                }, 2000);
+
+            }
+
+        })
+    }
+</script>
+
+<!--TODO: why not in the head? -->
+<link href="{{ url_for('static', filename='users/assets/js/jquery.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/bootstrap/js/bootstrap.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/smoothproducts.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/theme.js') }}">
+<link href="{{ url_for('static', filename='Organizer/assets/js/moment.min.js') }}">
+</body>
+</html>

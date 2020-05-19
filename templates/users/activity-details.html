@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ACTIVITY Details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/progress-bars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/smoothproducts.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container">
+        <a class="navbar-brand logo font-weight-bold" href="/UHome" style="color: #0d4040; ">CCSIT Activities</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/UHome">ACTIVITY LIST</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/activityenroll">ACTIVITY ENROLLED</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/cert">Certificate</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="page product-page">
+    <section class="clean-block clean-product dark">
+        <div class="container">
+            <div class="block-content"></div>
+            <div class="block-content">
+                <div class="product-info">
+                    <div class="row">
+                        {% for row in rows %}
+                            <div class="col-md-6">
+                                <img src="../../static/logos/{{ row[6] }}" width="400" height="400">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <h3><strong>{{ row[2] }}</strong></h3>
+                                    <div class="price">
+                                        <h3>{{ (row[3].split("T"))[0] }} {{ (row[3].split("T"))[1] }}</h3>
+                                    </div>
+                                    <div class="summary">
+                                        <h4><strong>Organizer Name:</strong> {{ row[1] }}</h4>
+                                        <h4><strong>Location:</strong> {{ row[5] }}</h4>
+                                        <h4><strong>Seats Number:</strong> {{ row[4] }}</h4>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                    </div>
+                </div>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-3">
+                                        {% if check=="enroll" %}
+                                            <button class=" btn  btn-block" style="background-color: #9A7D46;  color:#ffffff">Enrolled</button>
+                                        {% elif (reg == row[4]) %}
+                                            <button class=" btn  btn-block" style="background-color: #9A7D46;  color:#ffffff">Sorry, no available seats </button>
+                                        {% else %}
+                                        <form id="enrollform" style="display: inline; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;" method='POST'>
+                                            <input type="text" id="enroll" style="display: none;  visibility: hidden;" value="{{ row[0] }}" name='enroll'>
+                                            <button class=" btn  btn-block" style="background-color:#0D4040; color:#ffffff" type="submit">Enroll</button>
+                                        {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<link href="{{ url_for('static', filename='users/assets/js/jquery.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/bootstrap/js/bootstrap.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/smoothproducts.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/theme.js') }}">
+</body>
+</html>

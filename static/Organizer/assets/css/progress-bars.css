@@ -1,0 +1,95 @@
+.beautiful.progress {
+    height: 15px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.beautiful.progress.progress-square {
+    border-radius: 0px;
+}
+
+.beautiful.progress.progress-circle {
+    border-radius: 500px;
+}
+
+.beautiful.progress.progress-xs .progress-bar {
+    line-height: 4px;
+}
+
+.beautiful.progress.progress-xs {
+    height: 4px;
+    border-radius: 1px;
+}
+
+.beautiful.progress .progress-bar.progress-bar-success {
+    background-color: #0D4040;
+    background-image: none;
+}
+
+.beautiful.progress .progress-bar.progress-bar-info {
+    background-color: #0d4040;
+    background-image: none;
+}
+
+.beautiful.progress .progress-bar.progress-bar-warning {
+    background-color: #f2a654;
+    background-image: none;
+}
+
+.beautiful.progress .progress-bar.progress-bar-danger {
+    background-color: #f96868;
+    background-image: none;
+}
+
+.beautiful.progress .progress-sm {
+    height: 10px;
+}
+
+.beautiful.progress .progress-sm .progress-bar {
+    line-height: 10px;
+}
+
+.beautiful.progress.progress-lg {
+    height: 22px;
+}
+
+.beautiful.progress .progress-lg .progress-bar {
+    line-height: 22px;
+}
+
+.beautiful.progress .progress-bar {
+    background-image: none;
+    line-height: 15px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #9a7d46;
+}
+
+.follow {
+    flex: 1;
+    margin: 10px;
+    align-self: center;
+}
+
+button {
+    background: #0D4040;
+    border: none;
+    padding: 5px 10px;
+    color: whitesmoke;
+    width: 120px;
+    border-radius: 5px;
+    transition: all .3s ease-in;
+}
+
+button:active {
+    outline: none;
+}
+
+button:visited {
+    outline: none;
+}
+
+.unfollow {
+    background: #9a7d46;
+    color: white;
+}

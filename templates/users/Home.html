@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ACTIVITY LIST</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/progress-bars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/assets/css/smoothproducts.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a class="navbar-brand logo font-weight-bold" href="/UHome" style="color: #0d4040;">CCSIT Activities</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/UHome">ACTIVITY LIST</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/activityenroll">ACTIVITY ENROLLED</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/cert">Certificate</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="page landing-page">
+    <section class="clean-block about-us">
+        <div class="container">
+            <div class="block-heading">
+                <div class="row">
+                    <div class="col">
+                        <h2 class="text-left  font-weight-bold" style="color:#9A7D46;">Activities</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for row in rows -%}
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center">
+                            <a href="{{ url_for('uv_detail', id=row[0] ) }}">
+                                <img class="card-img-top w-400 d-block" width="400" height="300" src="static/logos/{{ row[6] }}">
+                            </a>
+                            <div class="card-body info">
+                                <a href="{{ url_for('uv_detail', id=row[0] ) }}">
+                                    <h4 class="card-title" style="color:#9A7D46;">{{ row[2] }}</h4>
+                                </a>
+                                <div class="progress beautiful progress-lg  " style="background-color: #d5dcdc;">
+                                    <div class="progress-bar progress-bar-info" data-toggle="tooltip" style=" color:#ffffff ; background-color:#0D4040;   width:{{ avaP[loop.index] }}%" title="{{ ava[loop.index] }} Available out of {{ row[4] }} seats">Available seats {{ avaP[loop.index] }}%</div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+<!-- TODO: needed? -->
+<footer class="page-footer dark">
+    <div class="footer-copyright">
+        <p>© 2020 Copyright</p>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<link href="{{ url_for('static', filename='users/assets/js/jquery.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/bootstrap/js/bootstrap.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/smoothproducts.min.js') }}">
+<link href="{{ url_for('static', filename='users/assets/js/theme.js') }}">
+</body>
+</html>

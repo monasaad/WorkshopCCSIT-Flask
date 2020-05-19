@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ADD ACTIVITY</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Organizer/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Organizer/assets/css/progress-bars.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Organizer/assets/css/smoothproducts.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container">
+        <a class="navbar-brand logo font-weight-bold" href="/home" style="color: #0d4040;">CCSIT Activities</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/home">VIEW ACTIVITY</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="page faq-page">
+    <section class="clean-block clean-faq dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-left  font-weight-bold" style="color:#9A7D46;">Add New Activity</h2>
+            </div>
+            <div class="block-content">
+                <form method="post" enctype="multipart/form-data">
+                    <h2 class="text-left">Activity Information</h2>
+                    <br>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="form-group">
+                                <img src="../../static/Organizer/assets/img/tech/image4.jpg" id="image" width="400"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="files" id="files" style="width: 400px" multiple required/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label style="font-weight: bold">Title</label>
+                                <input name="title" id="title" class="form-control" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold">Organizer</label>
+                                <input name="org" id="org" class="form-control" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold">Date</label>
+                                <input name="date" id="date" class="form-control" type="datetime-local" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold">Location</label>
+                                <input name="loc" id="loc" class="form-control" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: bold">No. of Seats</label>
+                                <input name="seats" id="seats" class="form-control" type="number" required>
+                            </div>
+                            <br>
+                            <div class="container">  {{ error }}
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <button class="btn font-weight-bold btn-block" style="background-color: #0D4040;  color:#ffffff" type="submit">Add
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <a class="btn font-weight-bold  btn-block" href="/home" style="background-color:#DCDCDC; color:#FFFFFF ">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script>
+    //JS code to preview the picture on the form
+
+    document.getElementById("files").onchange = function () {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("image").src = e.target.result;
+        };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    };
+</script>
+<link href="{{ url_for('static', filename='Organizer/assets/js/jquery.min.js') }}">
+<link href="{{ url_for('static', filename='Organizer/assets/bootstrap/js/bootstrap.min.js') }}">
+<link href="{{ url_for('static', filename='Organizer/assets/js/smoothproducts.min.js') }}">
+<link href="{{ url_for('static', filename='Organizer/assets/js/theme.js') }}">
+</body>
+</html>
